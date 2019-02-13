@@ -32,7 +32,7 @@ export class ChipsAutocompleteComponent {
   constructor() {
     this.filteredItems = this.itemCtrl.valueChanges.pipe(
         startWith(null),
-        map((items: string | null) => items ? this._filter(this.items) : this.allItems.slice()));
+        map((item: string | null) => item ? this._filter(item) : this.allItems.slice()));
   }
 
   add(event: MatChipInputEvent): void {
@@ -61,18 +61,18 @@ export class ChipsAutocompleteComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.items.push(event.option.viewValue);
+    const selectedValue = event.option.viewValue;
+    if (this.items.indexOf(selectedValue) === -1) {
+      this.items.push(event.option.viewValue);
+    }
     this.itemInput.nativeElement.value = '';
     this.itemInput.nativeElement.blur();
-    this.itemCtrl.setValue(event.option.viewValue);
+    this.itemCtrl.setValue(null);
   }
 
-  /*private _filter(value: string): string[] {
+  private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allItems.filter((item: string) => item && item.toLowerCase().indexOf(filterValue) !== 0);
-  }*/
-
-  private _filter(items: string[]): string[] {
-    return this.allItems.filter((item: string) => items.indexOf(item) !== 0);
+    return this.allItems.filter((item: string) => item && item.toLowerCase().indexOf(filterValue) === 0);
   }
+
 }
