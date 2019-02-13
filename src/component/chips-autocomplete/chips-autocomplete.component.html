@@ -1,6 +1,6 @@
-<mat-form-field class="example-chip-list">
+<mat-form-field class="chips-list">
   <mat-chip-list #chipList>
-    <mat-chip
+    <mat-chip class="chips-item" matChipRemove
       *ngFor="let item of items"
       [selectable]="selectable"
       [removable]="removable"

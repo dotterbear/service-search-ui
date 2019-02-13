@@ -1,0 +1,7 @@
+.chips-list {
+  width: 100%;
+}
+
+.chips-item:hover {
+  cursor: pointer;
+}

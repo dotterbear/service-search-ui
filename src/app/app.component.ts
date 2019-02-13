@@ -9,6 +9,16 @@ import { ChipsAutocompleteComponent } from '../component/chips-autocomplete/chip
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  mode: string = 'determinate'
   placeholder: string = 'New Items'
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+  startProgress() {
+    this.mode = 'indeterminate';
+  }
+
+  stopProgress() {
+    this.mode = 'determinate';
+  }
+
 }
