@@ -1,9 +1,7 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ChipsAutocompleteComponent } from '../component/chips-autocomplete/chips-autocomplete.component';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +9,6 @@ import {map, startWith} from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'service-search-ui';
+  placeholder: string = 'New Items'
+  allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 }
