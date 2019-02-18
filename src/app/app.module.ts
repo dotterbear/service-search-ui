@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule, MatAutocompleteModule, MatIconModule, MatChipsModule, MatFormFieldModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ChipsAutocompleteComponent } from '../component/chips-autocomplete/chips-autocomplete.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,7 +30,8 @@ import { HttpService } from '../service/http.service';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    HttpClientModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

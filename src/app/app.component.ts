@@ -22,7 +22,7 @@ export class AppComponent {
       .all()
       .subscribe((response: Response) => {
         let reponseJson = response.json();
-        this.listItems = new Principal(reponseJson);
+        // this.listItems = new Job(reponseJson);
       }, (error) => {
         console.log(error);
       });

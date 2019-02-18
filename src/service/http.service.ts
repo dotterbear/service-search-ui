@@ -1,18 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Response, Http, Headers, RequestOptions } from "@angular/http";
+import { map } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class HttpService {
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    all(): Observable<Response> {
-        return this.http.get("/all", this.makeOptions())
+    all() {
+      return this.http.get('/all').pipe(map((res: any) => res.json()));
     }
 
-    private makeOptions(): RequestOptions {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        return new RequestOptions({headers: headers});
-    }
 }
