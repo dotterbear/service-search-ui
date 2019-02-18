@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChipsAutocompleteComponent } from '../component/chips-autocomplete/chips-autocomplete.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { HttpService } from '../service/http.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     MatProgressBarModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
