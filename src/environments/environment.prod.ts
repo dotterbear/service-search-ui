@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  getAll: 'http://localhost:8767/rest/api/v1/jobad/list'
+  getAll: 'http://35.212.3.117:8767/rest/api/v1/jobad/list'
 };
