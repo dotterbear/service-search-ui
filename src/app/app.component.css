@@ -1,3 +1,41 @@
+table {
+  width: 120vw;
+}
+
+td.mat-table-sticky {
+  width: 350px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position, td.mat-cell, .mat-table-sticky {
+  padding-left: 8px;
+}
+
+.mat-table-sticky, td.mat-cell {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:first-child {
+	border-left: none;
+  border-right: 1px solid #e0e0e0;
+}
+
 .main {
 	padding: 2em;
+}
+
+.result {
+	height: calc(100vh - 300px);
+  overflow: auto;
+	width: calc(100vw - 4em);
+}
+
+.fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
 }
