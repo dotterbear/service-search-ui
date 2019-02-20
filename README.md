@@ -1,5 +1,9 @@
 # ServiceSearchUi
 
+A Angular search UI with docker image.
+
+[Demo site](http://35.212.3.117:8768/)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 
 ## Development server
