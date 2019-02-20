@@ -1,6 +1,6 @@
 # ServiceSearchUi
 
-A Angular search UI with docker image.
+An Angular search UI with docker image.
 
 [Demo site](http://35.212.3.117:8768/)
 
