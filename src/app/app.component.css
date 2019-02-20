@@ -25,7 +25,8 @@ th.mat-column-position, td.mat-column-position, td.mat-cell, .mat-table-sticky {
 }
 
 .result {
-	height: calc(100vh - 300px);
+	/*height: calc(100vh - 300px);*/
+  height: calc(100vh - 100px);
   overflow: auto;
 	width: calc(100vw - 4em);
 }

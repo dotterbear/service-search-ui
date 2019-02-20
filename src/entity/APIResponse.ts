@@ -1,11 +1,13 @@
 export interface APIResponse<T> {
   'code': string,
   'message': string,
-  'items': T[]
+  'items': T[],
+  'totalItems': number
 }
 
 export const initialState: APIResponse<any> = {
   'code': '',
   'message': '',
-  'items': []
+  'items': [],
+  'totalItems': 0
 }

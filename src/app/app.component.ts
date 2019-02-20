@@ -17,6 +17,7 @@ export class AppComponent {
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   displayedColumns: string[] = ['title', 'companyName', 'location', 'industry', 'yearsOfExp', 'careerLevel', 'employmentType', 'postedDate'];
   dataSource = new MatTableDataSource<Item>();
+  totalItems: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -25,11 +26,14 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.getList(1, 25);
+
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.getList(page.pageIndex + 1, page.pageSize);
+    });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort; // TODO: wait for api support
   }
 
   startProgress() {
@@ -47,16 +51,16 @@ export class AppComponent {
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
         if (!response.message) {
+          this.totalItems = response.totalItems || 10000; // TODO: wait for api support
           this.dataSource.data = response.jobAdItems as Item[];
         }
       },
-      error => console.log(error),
+      error => {
+        console.log(error);
+        this.stopProgress()
+      },
       () => this.stopProgress()
     );
   }
 
-  getPage(event: PageEvent) {
-    console.log(`Page ${event.pageIndex + 1} with size ${event.pageSize}`)
-    this.getList(event.pageIndex + 1, event.pageSize)
-  }
 }
