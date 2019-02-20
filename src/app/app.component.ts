@@ -15,9 +15,8 @@ export class AppComponent {
   mode: string = 'determinate'
   placeholder: string = 'New Items'
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-  listItems: Item[];
   displayedColumns: string[] = ['title', 'companyName', 'location', 'industry', 'yearsOfExp', 'careerLevel', 'employmentType', 'postedDate'];
-  dataSource: MatTableDataSource<Item>;
+  dataSource = new MatTableDataSource<Item>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -26,6 +25,11 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.getList(1, 25);
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   startProgress() {
@@ -43,10 +47,7 @@ export class AppComponent {
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
         if (!response.message) {
-          this.listItems = response.jobAdItems as Item[];
-          this.dataSource = new MatTableDataSource<Item>(this.listItems);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          this.dataSource.data = response.jobAdItems as Item[];
         }
       },
       error => console.log(error),
