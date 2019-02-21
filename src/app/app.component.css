@@ -1,34 +1,12 @@
 table {
-  width: 120vw;
-}
-
-td.mat-table-sticky {
-  width: 350px;
-  padding-right: 8px;
-}
-
-th.mat-column-position, td.mat-column-position, td.mat-cell, .mat-table-sticky {
-  padding-left: 8px;
-}
-
-.mat-table-sticky, td.mat-cell {
-  border-left: 1px solid #e0e0e0;
-}
-
-.mat-table-sticky:first-child {
-	border-left: none;
-  border-right: 1px solid #e0e0e0;
-}
-
-.main {
-	padding: 2em;
+  width: 100%;
 }
 
 .result {
 	/*height: calc(100vh - 300px);*/
-  height: calc(100vh - 100px);
+  height: calc(100vh - 110px);
   overflow: auto;
-	width: calc(100vw - 4em);
+	width: 100%;
 }
 
 .fixed {
@@ -39,4 +17,46 @@ th.mat-column-position, td.mat-column-position, td.mat-cell, .mat-table-sticky {
   background-color: red;
   color: white;
   text-align: center;
+}
+
+h1 {
+  color: #3949AB;
+  font-size: 16px;
+}
+
+h3 {
+  color: #78909C;
+  font-size: 14px;
+}
+
+h3 > span, h5 {
+  color: #B0BEC5;
+  font-size: 14px
+}
+
+h1, h3, h5 {
+  margin: 0;
+  padding: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.mat-cell {
+  line-height: 1.5;
+  padding: 15px;
+}
+
+.mat-row:hover, .selected {
+  background: #EEEEEE;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell, .selected .mat-cell {
+  border-left: 5px solid #304FFE;
 }

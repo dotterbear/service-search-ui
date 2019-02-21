@@ -15,9 +15,10 @@ export class AppComponent {
   mode: string = 'determinate'
   placeholder: string = 'New Items'
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-  displayedColumns: string[] = ['title', 'companyName', 'location', 'industry', 'yearsOfExp', 'careerLevel', 'employmentType', 'postedDate'];
+  displayedColumns: string[] = ['summary'];
   dataSource = new MatTableDataSource<Item>();
   totalItems: number;
+  selectedItem: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,6 +62,10 @@ export class AppComponent {
       },
       () => this.stopProgress()
     );
+  }
+
+  getItem(row: any) {
+    console.log(row);
   }
 
 }
