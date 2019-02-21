@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, PageEvent } from '@angular/material';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatSort, PageEvent, MatSidenav } from '@angular/material';
 import { HttpService } from "../service/http.service";
 import { APIResponse } from '../entity/APIResponse';
 import { Item } from '../entity/Item';
 import { environment } from '../environments/environment';
 import { HttpParams } from "@angular/common/http";
+import { FormControl } from '@angular/forms';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
@@ -13,28 +15,51 @@ import { HttpParams } from "@angular/common/http";
 })
 export class AppComponent {
   mode: string = 'determinate'
+
+  // for search
   placeholder: string = 'New Items'
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+  // for data table
   displayedColumns: string[] = ['summary'];
   dataSource = new MatTableDataSource<Item>();
   totalItems: number;
   selectedItem: any;
 
+  // for side bar
+  sidenavMode = new FormControl('side');
+  mobileQuery: MediaQueryList;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSidenav) sidenav: MatSidenav;
 
-  constructor(private httpService: HttpService){}
+  private _mobileQueryListener: () => void;
+
+  constructor(private httpService: HttpService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 768px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
   ngOnInit(): void {
     this.getList(1, 25);
 
     this.paginator.page.subscribe((page: PageEvent) => {
+      if (this.selectedItem) {
+        this.sidenav.toggle()
+      }
+      this.selectedItem = '';
       this.getList(page.pageIndex + 1, page.pageSize);
     });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort; // TODO: wait for api support
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   startProgress() {

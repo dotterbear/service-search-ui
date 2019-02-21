@@ -7,25 +7,31 @@
   <chips-autocomplete-component [allItems]=allItems [placeholder]=placeholder></chips-autocomplete-component>
 </div>
 -->
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="result">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="summary">
+            <td mat-cell *matCellDef="let item">
+              <h1>{{item.title}}</h1>
+              <h3>{{item.companyName}}<span>{{item.location? ' - ' + item.location : ''}}</span></h3>
+              <h5>{{item.postedDate}}</h5>
+            </td>
+          </ng-container>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="!selectedItem ? sidenav.toggle() : ''; selectedItem == row ? sidenav.toggle() : selectedItem = row; getItem(row);" [class.selected]="selectedItem === row"></tr>
+        </table>
+        <div class="fixed">
+          <mat-paginator fixed [length]="totalItems" [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+  <mat-sidenav #sidenav position="end" [mode]="sidenavMode.value" [class.mobile-sidenav]="mobileQuery.matches">
+    TODO
+  </mat-sidenav>
+</mat-sidenav-container>
 
-<div class="result">
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
-
-      <ng-container matColumnDef="summary">
-        <td mat-cell *matCellDef="let item">
-          <h1>{{item.title}}</h1>
-          <h3>{{item.companyName}}<span>{{item.location? ' - ' + item.location : ''}}</span></h3>
-          <h5>{{item.postedDate}}</h5>
-        </td>
-      </ng-container>
-
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectedItem = row; getItem(row)" [class]="selectedItem === row ? 'selected' : ''">></tr>
-    </table>
-
-    <div class="fixed">
-    <mat-paginator fixed [length]="totalItems" [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
-  </div>
-</div>
+<button class="display-none" color="primary" mat-raised-button (click)="selectedItem = ''; sidenav.toggle()" [class.display-block]="selectedItem && mobileQuery.matches">Close</button>
 
 <router-outlet></router-outlet>

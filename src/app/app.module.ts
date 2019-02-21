@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressBarModule, MatAutocompleteModule, MatIconModule, MatChipsModule, MatFormFieldModule, MatPaginatorModule, MatTableModule, MatSortModule } from '@angular/material';
+import { MatProgressBarModule, MatAutocompleteModule, MatIconModule, MatChipsModule,
+  MatFormFieldModule, MatPaginatorModule, MatTableModule, MatSortModule, MatSidenavModule,
+  MatButtonModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -34,7 +36,9 @@ import { HttpService } from '../service/http.service';
     HttpClientModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSidenavModule,
+    MatButtonModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

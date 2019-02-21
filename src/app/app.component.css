@@ -2,11 +2,17 @@ table {
   width: 100%;
 }
 
-.result {
+.result, .overlay {
 	/*height: calc(100vh - 300px);*/
   height: calc(100vh - 110px);
   overflow: auto;
 	width: 100%;
+}
+
+.overlay {
+  backgrond: transparent;
+  top: 0;
+  z-index: 1;
 }
 
 .fixed {
@@ -59,4 +65,35 @@ h1, h3, h5 {
 
 .mat-row:hover .mat-cell, .selected .mat-cell {
   border-left: 5px solid #304FFE;
+}
+
+mat-sidenav {
+  /*height: calc(100vh - 110px);*/
+  border: 1px solid #e0e0e0;
+  width: calc(100% / 2);
+}
+
+.mat-drawer-inner-container {
+  height: calc(100vh - 110px);
+}
+
+.mobile-sidenav {
+  width: 100%;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+
+.mat-raised-button {
+  border-radius: 0;
+  width: 100%;
+}
+
+::ng-deep .mat-paginator-page-size-label {
+  display: none;
 }
