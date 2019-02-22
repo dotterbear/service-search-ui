@@ -6,7 +6,6 @@ COPY . .
 RUN npm run ng build -- --prod --output-path=dist
 
 FROM nginx:1.14.1-alpine
-EXPOSE 80
 COPY nginx.conf /etc/nginx/conf.d/
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
