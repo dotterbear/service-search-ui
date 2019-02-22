@@ -1,4 +1,4 @@
-version: '1'
+version: '3.7'
 services:
   app:
     image: registry.gitlab.com/dotterbear/service-jobad-reader
