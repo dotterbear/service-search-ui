@@ -22,7 +22,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="!selectedItem ? sidenav.toggle() : ''; selectedItem == row ? sidenav.toggle() : selectedItem = row; getItem(row);" [class.selected]="selectedItem === row"></tr>
         </table>
         <div class="fixed">
-          <mat-paginator fixed [length]="totalItems" [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
+          <mat-paginator fixed [length]="totalItems" [pageIndex]="0" [pageSize]="pageSize" [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
         </div>
       </div>
     </div>

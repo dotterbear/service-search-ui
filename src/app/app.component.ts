@@ -25,6 +25,7 @@ export class AppComponent {
   dataSource = new MatTableDataSource<Item>();
   totalItems: number;
   selectedItem: any;
+  pageSize: number = 25;
 
   // for side bar
   sidenavMode = new FormControl('side');
@@ -43,7 +44,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.getList(1, 25);
+    this.getList(1, this.pageSize);
 
     this.paginator.page.subscribe((page: PageEvent) => {
       if (this.selectedItem) {
@@ -77,8 +78,8 @@ export class AppComponent {
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
         if (!response.message) {
-          this.totalItems = response.totalItems || 10000; // TODO: wait for api support
           this.dataSource.data = response.jobAdItems as Item[];
+          this.totalItems = response.totalItemNum || this.dataSource.data.length;
         }
       },
       error => {
