@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { HttpParams } from "@angular/common/http";
 import { FormControl } from '@angular/forms';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { getListeners } from '@angular/core/src/render3/discovery_utils';
 
 @Component({
   selector: 'app-root',
@@ -14,33 +15,51 @@ import { MediaMatcher } from '@angular/cdk/layout';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  mode: string = 'determinate'
+  mode = 'determinate';
 
   // for search
-  placeholder: string = 'New Items'
+  placeholder: string = 'New Items';
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+  // for sort
+  sortcolumns = [{
+    key: 'default',
+    value: 'ts',
+    text: 'Default'
+  }, {
+    key: 'title',
+    value: 'title',
+    text: 'Title'
+  }, {
+    key: 'postedDate',
+    value: 'ts',
+    text: 'Posted Date'
+  }];
+  sortedColumn: string;
+  sortedAsc = 'asc';
+  sortedDesc = 'desc';
+  sortedOrder = this.sortedAsc;
 
   // for data table
   displayedColumns: string[] = ['summary'];
   dataSource = new MatTableDataSource<Item>();
   totalItems: number;
   selectedItem: any;
-  pageSize: number = 25;
+  pageSize = 25;
 
   // for side bar
   sidenavMode = new FormControl('side');
   mobileQuery: MediaQueryList;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
 
   constructor(private httpService: HttpService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -55,12 +74,8 @@ export class AppComponent {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort; // TODO: wait for api support
-  }
-
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   startProgress() {
@@ -71,13 +86,17 @@ export class AppComponent {
     this.mode = 'determinate';
   }
 
-  getList(page: any, size: any) {
+  getList(page: any, size: any, orderBy?: string, order?: string) {
     this.startProgress();
-    let params = new HttpParams().set('page', page).set('size', size);
+    const params = new HttpParams()
+        .set('page', page)
+        .set('size', size)
+        .set('orderBy', orderBy)
+        .set('direction', order ? order : this.sortedAsc);
     this.httpService
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
-        if (!response.message) {
+        if (response.code === '200') {
           this.dataSource.data = response.jobAdItems as Item[];
           this.totalItems = response.totalItemNum || this.dataSource.data.length;
         }
@@ -92,6 +111,16 @@ export class AppComponent {
 
   getItem(row: any) {
     console.log(row);
+  }
+
+  sort(column: any) {
+    if (this.sortedColumn === column.key) {
+      this.sortedOrder = this.sortedOrder === this.sortedAsc ? this.sortedDesc : this.sortedAsc;
+    } else {
+      this.sortedOrder = this.sortedAsc;
+    }
+    this.sortedColumn = column.key;
+    this.getList(1, this.pageSize, column.value, this.sortedOrder);
   }
 
 }
