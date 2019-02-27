@@ -22,9 +22,10 @@ export class AppComponent {
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   // for sort
+  defaultSoredColumn = 'ts';
   sortcolumns = [{
     key: 'default',
-    value: 'ts',
+    value: this.defaultSoredColumn,
     text: 'Default'
   }, {
     key: 'title',
@@ -87,13 +88,14 @@ export class AppComponent {
     this.mode = 'determinate';
   }
 
-  getList(page: any, size: any, orderBy?: string, order?: string) {
+  getList(page: any, size: any, orderBy?: string, order?: string, text?: string) {
     this.startProgress();
     const params = new HttpParams()
         .set('page', page)
         .set('size', size)
-        .set('orderBy', orderBy)
-        .set('direction', order ? order : this.sortedAsc);
+        .set('orderBy', orderBy || this.defaultSoredColumn)
+        .set('direction', order || this.sortedAsc)
+        .set('query', text || '');
     this.httpService
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
@@ -123,6 +125,10 @@ export class AppComponent {
     this.sortedColumnKey = column.key;
     this.sortedColumn = column.value;
     this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder);
+  }
+
+  search(text: string) {
+    this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder, text);
   }
 
 }

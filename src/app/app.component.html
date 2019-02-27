@@ -7,8 +7,14 @@
   <chips-autocomplete-component [allItems]=allItems [placeholder]=placeholder></chips-autocomplete-component>
 </div>
 -->
+
+<form class="form">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Text" value="" (keyup.enter)="search($event.target.value)">
+  </mat-form-field>
+</form>
+
 <div>
-  <h1>Sort</h1>
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style" fxLayout="row">
     <mat-button-toggle fxLayout='column' fxFlex="33.3" *ngFor="let column of sortcolumns; let i = index" [class.asc]="sortedOrder == sortedAsc" [class.desc]="sortedOrder == sortedDesc" [value]="column.value" (click)="sort(column)">{{column.text}}</mat-button-toggle>
   </mat-button-toggle-group>

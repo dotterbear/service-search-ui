@@ -120,3 +120,14 @@ mat-sidenav {
   -webkit-transform: rotate(45deg);
   top: calc(50% - .5rem);
 }
+
+.form {
+  min-width: 100%;
+  max-width: 100%;
+  padding: .5rem;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
