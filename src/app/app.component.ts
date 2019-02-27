@@ -35,6 +35,7 @@ export class AppComponent {
     value: 'ts',
     text: 'Posted Date'
   }];
+  sortedColumnKey: string;
   sortedColumn: string;
   sortedAsc = 'asc';
   sortedDesc = 'desc';
@@ -114,13 +115,14 @@ export class AppComponent {
   }
 
   sort(column: any) {
-    if (this.sortedColumn === column.key) {
+    if (this.sortedColumnKey === column.key) {
       this.sortedOrder = this.sortedOrder === this.sortedAsc ? this.sortedDesc : this.sortedAsc;
     } else {
       this.sortedOrder = this.sortedAsc;
     }
-    this.sortedColumn = column.key;
-    this.getList(1, this.pageSize, column.value, this.sortedOrder);
+    this.sortedColumnKey = column.key;
+    this.sortedColumn = column.value;
+    this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder);
   }
 
 }
