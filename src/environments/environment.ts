@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  getAll: 'http://localhost:8766/rest/api/v1/jobad/list'
+  getAll: 'http://localhost:8767/rest/api/v1/jobad/list'
 };
 
 /*
