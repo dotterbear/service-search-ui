@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app:
-    image: registry.gitlab.com/dotterbear/service-jobad-reader
+    image: registry.gitlab.com/dotterbear/service-search-ui
     ports:
       - '8768:80' 
     expose:

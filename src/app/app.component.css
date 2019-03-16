@@ -122,12 +122,14 @@ mat-sidenav {
 }
 
 .form {
-  min-width: 100%;
-  max-width: 100%;
   padding: .5rem;
-  width: 100%;
 }
 
 .full-width {
   width: 100%;
+}
+
+.company-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

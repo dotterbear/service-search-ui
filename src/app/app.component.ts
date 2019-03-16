@@ -5,7 +5,7 @@ import { APIResponse } from '../entity/APIResponse';
 import { Item } from '../entity/Item';
 import { environment } from '../environments/environment';
 import { HttpParams } from "@angular/common/http";
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { getListeners } from '@angular/core/src/render3/discovery_utils';
 
@@ -16,6 +16,8 @@ import { getListeners } from '@angular/core/src/render3/discovery_utils';
 })
 export class AppComponent {
   mode = 'determinate';
+
+  searchForm: FormGroup;
 
   // for search
   placeholder: string = 'New Items';
@@ -58,10 +60,14 @@ export class AppComponent {
 
   private mobileQueryListener: () => void;
 
-  constructor(private httpService: HttpService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(private httpService: HttpService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, formBuilder: FormBuilder) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
+    this.searchForm =  formBuilder.group({
+      query: '',
+      'company-name': ''
+    });
   }
 
   ngOnInit(): void {
@@ -88,14 +94,15 @@ export class AppComponent {
     this.mode = 'determinate';
   }
 
-  getList(page: any, size: any, orderBy?: string, order?: string, text?: string) {
+  getList(page: any, size: any, orderBy?: string, order?: string, formValue?: any) {
     this.startProgress();
     const params = new HttpParams()
         .set('page', page)
         .set('size', size)
         .set('orderBy', orderBy || this.defaultSoredColumn)
         .set('direction', order || this.sortedAsc)
-        .set('query', text || '');
+        .set('query', formValue && formValue.query || '')
+        .set('company-name', formValue && formValue['company-name']);
     this.httpService
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
@@ -124,11 +131,11 @@ export class AppComponent {
     }
     this.sortedColumnKey = column.key;
     this.sortedColumn = column.value;
-    this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder);
+    this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder, this.searchForm.value);
   }
 
-  search(text: string) {
-    this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder, text);
+  search() {
+    this.getList(1, this.pageSize, this.sortedColumn, this.sortedOrder, this.searchForm.value);
   }
 
 }
