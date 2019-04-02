@@ -24,7 +24,7 @@ export class AppComponent {
   allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   // for sort
-  defaultSoredColumn = 'ts';
+  defaultSoredColumn = 'postedDate';
   sortcolumns = [{
     key: 'default',
     value: this.defaultSoredColumn,
@@ -35,7 +35,7 @@ export class AppComponent {
     text: 'Title'
   }, {
     key: 'postedDate',
-    value: 'ts',
+    value: 'postedDate',
     text: 'Posted Date'
   }];
   sortedColumnKey: string;
