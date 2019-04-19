@@ -102,7 +102,7 @@ export class AppComponent {
         .set('orderBy', orderBy || this.defaultSoredColumn)
         .set('direction', order || this.sortedAsc)
         .set('query', formValue && formValue.query || '')
-        .set('company-name', formValue && formValue['company-name']);
+        .set('company-name', formValue && formValue['company-name'] || '');
     this.httpService
       .get<APIResponse<Item>>(environment.getAll, params)
       .subscribe((response: any) => {
