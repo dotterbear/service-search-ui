@@ -45,9 +45,7 @@
       </div>
     </div>
   </mat-sidenav-content>
-  <mat-sidenav #sidenav position="end" [mode]="sidenavMode.value" [class.mobile-sidenav]="mobileQuery.matches">
-    TODO
-  </mat-sidenav>
+  <mat-sidenav #sidenav position="end" [mode]="sidenavMode.value" [class.mobile-sidenav]="mobileQuery.matches"></mat-sidenav>
 </mat-sidenav-container>
 
 <button class="display-none" color="primary" mat-raised-button (click)="selectedItem = ''; sidenav.toggle()" [class.display-block]="selectedItem && mobileQuery.matches">Close</button>
