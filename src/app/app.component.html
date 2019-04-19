@@ -32,8 +32,8 @@
         <table mat-table [dataSource]="dataSource">
           <ng-container matColumnDef="summary">
             <td mat-cell *matCellDef="let item">
-              <h1>{{item.title}}</h1>
-              <h3 class="company-name" (click)="searchForm.controls['company-name'].setValue(item.companyName); search()">{{item.companyName}}<span>{{item.location? ' - ' + item.location : ''}}</span></h3>
+              <h1>{{item.title || "[NO Title]"}}</h1>
+              <h3 class="company-name" (click)="searchForm.controls['company-name'].setValue(item.companyName); search()">{{item.companyName || "[NO NAME]"}}<span>{{item.location? ' - ' + item.location : ''}}</span></h3>
               <h5>{{item.postedDate}}</h5>
             </td>
           </ng-container>
